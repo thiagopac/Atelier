@@ -2,9 +2,8 @@
 //  AtelierApp.swift
 //  Atelier
 //
-//  Created by Thiago Castro on 09/06/26.
+//  Created by Thiago Pires on 09/06/26.
 //
-
 
 import SwiftUI
 
@@ -13,6 +12,7 @@ struct AtelierApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .preferredColorScheme(.dark)
         }
     }
 }

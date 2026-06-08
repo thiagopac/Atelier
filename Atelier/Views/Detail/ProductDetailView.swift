@@ -15,39 +15,45 @@ struct ProductDetailView: View {
         ZStack(alignment: .bottom) {
             Color.atelierBackground.ignoresSafeArea()
 
-            ScrollView(showsIndicators: false) {
-                VStack(spacing: 0) {
-                    imageSection
-                    infoSection
+            VStack(spacing: 0) {
+                navBar
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 0) {
+                        imageSection
+                        infoSection
+                    }
                 }
             }
 
             bottomCTA
         }
-        .navigationBarBackButtonHidden(true)
-        .toolbarBackground(.hidden, for: .navigationBar)
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                Button { dismiss() } label: {
-                    Image(systemName: "arrow.left")
-                        .font(.system(size: 15, weight: .medium))
-                        .foregroundStyle(.white)
-                        .frame(width: 38, height: 38)
-                        .background(Circle().fill(Color.atelierSurface))
-                        .overlay(Circle().strokeBorder(Color.atelierBorder, lineWidth: 1))
-                }
+        .toolbar(.hidden, for: .navigationBar)
+    }
+
+    private var navBar: some View {
+        HStack {
+            Button { dismiss() } label: {
+                Image(systemName: "arrow.left")
+                    .font(.system(size: 15, weight: .medium))
+                    .foregroundStyle(.white)
+                    .frame(width: 38, height: 38)
+                    .background(Circle().fill(Color.atelierSurface))
+                    .overlay(Circle().strokeBorder(Color.atelierBorder, lineWidth: 1))
             }
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {} label: {
-                    Image(systemName: "bookmark")
-                        .font(.system(size: 15))
-                        .foregroundStyle(.white)
-                        .frame(width: 38, height: 38)
-                        .background(Circle().fill(Color.atelierSurface))
-                        .overlay(Circle().strokeBorder(Color.atelierBorder, lineWidth: 1))
-                }
+
+            Spacer()
+
+            Button {} label: {
+                Image(systemName: "bookmark")
+                    .font(.system(size: 15))
+                    .foregroundStyle(.white)
+                    .frame(width: 38, height: 38)
+                    .background(Circle().fill(Color.atelierSurface))
+                    .overlay(Circle().strokeBorder(Color.atelierBorder, lineWidth: 1))
             }
         }
+        .padding(.horizontal, 20)
+        .padding(.vertical, 10)
     }
 
     // MARK: - Image Section

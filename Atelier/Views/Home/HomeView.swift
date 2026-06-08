@@ -37,6 +37,7 @@ struct HomeView: View {
                 Task { await viewModel.loadProducts() }
             }
         }
+        .toolbar(.hidden, for: .navigationBar)
     }
 
     // MARK: - Nav Bar
@@ -137,7 +138,7 @@ struct HomeView: View {
             .padding(.bottom, 40)
         }
         .frame(maxWidth: .infinity)
-        .frame(height: 520)
+        .frame(height: 360)
     }
 
     // MARK: - Category Picker
@@ -228,7 +229,12 @@ struct HomeView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 2) {
                 ForEach(viewModel.filteredProducts) { product in
-                    ProductCardView(product: product)
+                    NavigationLink {
+                        ProductDetailView(product: product)
+                    } label: {
+                        ProductCardView(product: product)
+                    }
+                    .buttonStyle(.plain)
                 }
             }
             .padding(.horizontal, 24)

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     @State private var viewModel = HomeViewModel()
+    @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
         ZStack {
@@ -30,6 +31,11 @@ struct HomeView: View {
         }
         .task {
             await viewModel.loadProducts()
+        }
+        .onChange(of: scenePhase) { _, newPhase in
+            if newPhase == .active && viewModel.products.isEmpty && !viewModel.isLoading {
+                Task { await viewModel.loadProducts() }
+            }
         }
     }
 

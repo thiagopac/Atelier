@@ -48,6 +48,7 @@ struct ProductCardView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 14)
             .padding(.vertical, 14)
+            .frame(maxWidth: .infinity, minHeight: 80, alignment: .topLeading)
         }
         .frame(width: 180)
         .background(Color.atelierSurface)

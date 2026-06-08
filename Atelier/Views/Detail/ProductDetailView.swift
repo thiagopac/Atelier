@@ -33,11 +33,8 @@ struct ProductDetailView: View {
                         .font(.system(size: 15, weight: .medium))
                         .foregroundStyle(.white)
                         .frame(width: 38, height: 38)
-                        .background(Color.atelierSurface)
-                        .clipShape(Circle())
-                        .overlay {
-                            Circle().stroke(Color.atelierBorder, lineWidth: 1)
-                        }
+                        .background(Circle().fill(Color.atelierSurface))
+                        .overlay(Circle().strokeBorder(Color.atelierBorder, lineWidth: 1))
                 }
             }
             ToolbarItem(placement: .topBarTrailing) {
@@ -46,11 +43,8 @@ struct ProductDetailView: View {
                         .font(.system(size: 15))
                         .foregroundStyle(.white)
                         .frame(width: 38, height: 38)
-                        .background(Color.atelierSurface)
-                        .clipShape(Circle())
-                        .overlay {
-                            Circle().stroke(Color.atelierBorder, lineWidth: 1)
-                        }
+                        .background(Circle().fill(Color.atelierSurface))
+                        .overlay(Circle().strokeBorder(Color.atelierBorder, lineWidth: 1))
                 }
             }
         }

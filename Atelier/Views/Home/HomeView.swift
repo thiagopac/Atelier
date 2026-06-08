@@ -25,9 +25,6 @@ struct HomeView: View {
                     }
                 }
             }
-            .safeAreaInset(edge: .bottom, spacing: 0) {
-                tabBar
-            }
         }
         .task {
             await viewModel.loadProducts()
@@ -254,44 +251,6 @@ struct HomeView: View {
         }
     }
 
-    // MARK: - Tab Bar
-
-    private var tabBar: some View {
-        VStack(spacing: 0) {
-            Rectangle()
-                .fill(Color.atelierBorder)
-                .frame(maxWidth: .infinity)
-                .frame(height: 1)
-
-            HStack(spacing: 0) {
-                tabBarItem("house.fill", "HOME", active: true)
-                tabBarItem("magnifyingglass", "SEARCH", active: false)
-                tabBarItem("bag", "BAG", active: false)
-                tabBarItem("heart", "SAVED", active: false)
-                tabBarItem("person", "PROFILE", active: false)
-            }
-            .padding(.horizontal, 4)
-            .padding(.vertical, 12)
-        }
-        .background(Color.atelierBackground)
-    }
-
-    private func tabBarItem(_ icon: String, _ label: String, active: Bool) -> some View {
-        Button {
-        } label: {
-            VStack(spacing: 4) {
-                Image(systemName: icon)
-                    .font(.system(size: 21))
-                    .foregroundStyle(active ? .white : Color.atelierSecondary)
-
-                Text(label)
-                    .font(.system(size: 8, weight: .bold))
-                    .tracking(1.5)
-                    .foregroundStyle(active ? .white : Color.atelierSecondary)
-            }
-        }
-        .frame(maxWidth: .infinity)
-    }
 }
 
 #Preview {

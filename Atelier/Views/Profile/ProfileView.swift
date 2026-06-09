@@ -187,7 +187,7 @@ struct ProfileView: View {
                 .overlay(Rectangle().stroke(Color.atelierBorder, lineWidth: 1))
 
                 Text(item.label)
-                    .font(.system(size: 15))
+                    .font(.system(size: 16, design: .serif))
                     .foregroundStyle(.white)
 
                 Spacer()
@@ -228,7 +228,7 @@ struct ProfileView: View {
                     .overlay(Rectangle().stroke(Color.atelierBorder, lineWidth: 1))
 
                     Text("Sign Out")
-                        .font(.system(size: 15))
+                        .font(.system(size: 16, design: .serif))
                         .foregroundStyle(Color(red: 0.85, green: 0.4, blue: 0.4))
 
                     Spacer()

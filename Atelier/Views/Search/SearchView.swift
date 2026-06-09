@@ -169,7 +169,7 @@ struct SearchView: View {
                     }
                 }
             }
-            .padding(.bottom, 24)
+            .padding(.bottom, 100)
         }
         .onTapGesture {
             isSearchFocused = false
@@ -222,6 +222,7 @@ struct SearchView: View {
                     }
                 }
             }
+            .padding(.bottom, 100)
         }
     }
 }

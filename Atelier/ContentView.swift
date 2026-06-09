@@ -13,6 +13,7 @@ struct ContentView: View {
     @State private var searchLoaded = false
     @State private var bagLoaded = false
     @State private var savedLoaded = false
+    @State private var profileLoaded = false
 
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -27,6 +28,7 @@ struct ContentView: View {
             if tab == .search && !searchLoaded { searchLoaded = true }
             if tab == .bag && !bagLoaded { bagLoaded = true }
             if tab == .saved && !savedLoaded { savedLoaded = true }
+            if tab == .profile && !profileLoaded { profileLoaded = true }
         }
     }
 
@@ -62,6 +64,14 @@ struct ContentView: View {
             }
             .opacity(selectedTab == .saved ? 1 : 0)
             .allowsHitTesting(selectedTab == .saved)
+
+            Group {
+                if profileLoaded {
+                    NavigationStack { ProfileView() }
+                }
+            }
+            .opacity(selectedTab == .profile ? 1 : 0)
+            .allowsHitTesting(selectedTab == .profile)
         }
     }
 

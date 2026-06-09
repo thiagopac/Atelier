@@ -35,19 +35,19 @@ struct ProfileView: View {
                         userCard
                         statsRow
                         menuSection(title: "MY ACCOUNT", items: [
-                            MenuItem(icon: "shippingbox", label: "My Orders"),
-                            MenuItem(icon: "creditcard", label: "Payment Methods"),
-                            MenuItem(icon: "location", label: "Shipping Addresses"),
+                            MenuItem(icon: "shippingbox.fill", label: "My Orders"),
+                            MenuItem(icon: "creditcard.fill", label: "Payment Methods"),
+                            MenuItem(icon: "location.fill", label: "Shipping Addresses"),
                         ])
                         menuSection(title: "PREFERENCES", items: [
                             MenuItem(icon: "ruler", label: "Size Guide"),
-                            MenuItem(icon: "bell", label: "Notifications"),
+                            MenuItem(icon: "bell.fill", label: "Notifications"),
                             MenuItem(icon: "globe", label: "Language", detail: "English"),
                         ])
                         menuSection(title: "SUPPORT", items: [
-                            MenuItem(icon: "questionmark.circle", label: "Help Center"),
-                            MenuItem(icon: "lock.shield", label: "Privacy Policy"),
-                            MenuItem(icon: "info.circle", label: "About Atelier", detail: "v1.0"),
+                            MenuItem(icon: "questionmark.circle.fill", label: "Help Center"),
+                            MenuItem(icon: "lock.shield.fill", label: "Privacy Policy"),
+                            MenuItem(icon: "info.circle.fill", label: "About Atelier", detail: "v1.0"),
                         ])
                         signOutRow
                     }
@@ -177,10 +177,14 @@ struct ProfileView: View {
     private func menuRow(item: MenuItem) -> some View {
         Button {} label: {
             HStack(spacing: 16) {
-                Image(systemName: item.icon)
-                    .font(.system(size: 15))
-                    .foregroundStyle(Color.atelierSecondary)
-                    .frame(width: 22, alignment: .center)
+                ZStack {
+                    Color.atelierElevated
+                    Image(systemName: item.icon)
+                        .font(.system(size: 16))
+                        .foregroundStyle(.white)
+                }
+                .frame(width: 40, height: 40)
+                .overlay(Rectangle().stroke(Color.atelierBorder, lineWidth: 1))
 
                 Text(item.label)
                     .font(.system(size: 15))
@@ -199,7 +203,7 @@ struct ProfileView: View {
                     .foregroundStyle(Color.atelierBorder)
             }
             .padding(.horizontal, 24)
-            .frame(height: 54)
+            .frame(height: 64)
         }
         .buttonStyle(.plain)
     }
@@ -214,10 +218,14 @@ struct ProfileView: View {
 
             Button {} label: {
                 HStack(spacing: 16) {
-                    Image(systemName: "rectangle.portrait.and.arrow.right")
-                        .font(.system(size: 15))
-                        .foregroundStyle(Color(red: 0.85, green: 0.4, blue: 0.4))
-                        .frame(width: 22, alignment: .center)
+                    ZStack {
+                        Color.atelierElevated
+                        Image(systemName: "rectangle.portrait.and.arrow.right")
+                            .font(.system(size: 16))
+                            .foregroundStyle(Color(red: 0.85, green: 0.4, blue: 0.4))
+                    }
+                    .frame(width: 40, height: 40)
+                    .overlay(Rectangle().stroke(Color.atelierBorder, lineWidth: 1))
 
                     Text("Sign Out")
                         .font(.system(size: 15))
@@ -226,7 +234,7 @@ struct ProfileView: View {
                     Spacer()
                 }
                 .padding(.horizontal, 24)
-                .frame(height: 54)
+                .frame(height: 64)
             }
             .buttonStyle(.plain)
 

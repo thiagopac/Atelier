@@ -10,6 +10,8 @@ import SwiftUI
 struct ProductDetailView: View {
     let product: Product
     @Environment(\.dismiss) private var dismiss
+    @Environment(BagStore.self) private var bagStore
+    @State private var justAdded = false
 
     var body: some View {
         ZStack {
@@ -127,14 +129,22 @@ struct ProductDetailView: View {
                 .frame(height: 1)
 
             HStack(spacing: 0) {
-                Button {} label: {
-                    Text("ADD TO BAG")
+                Button {
+                    bagStore.add(product)
+                    justAdded = true
+                    Task { @MainActor in
+                        try? await Task.sleep(for: .seconds(1.5))
+                        justAdded = false
+                    }
+                } label: {
+                    Text(justAdded ? "ADDED TO BAG ✓" : "ADD TO BAG")
                         .font(.system(size: 12, weight: .bold))
                         .tracking(3)
-                        .foregroundStyle(Color.atelierBackground)
+                        .foregroundStyle(justAdded ? Color.atelierBackground : Color.atelierBackground)
                         .frame(maxWidth: .infinity)
                         .frame(height: 52)
-                        .background(Color.white)
+                        .background(justAdded ? Color.atelierAccent : Color.white)
+                        .animation(.easeInOut(duration: 0.25), value: justAdded)
                 }
 
                 Rectangle()
@@ -167,4 +177,5 @@ struct ProductDetailView: View {
             image: "https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg"
         ))
     }
+    .environment(BagStore())
 }

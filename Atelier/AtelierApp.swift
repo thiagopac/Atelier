@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct AtelierApp: App {
+    @State private var bagStore = BagStore()
+
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(bagStore)
                 .preferredColorScheme(.dark)
         }
     }

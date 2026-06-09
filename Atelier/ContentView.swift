@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(BagStore.self) private var bagStore
     @State private var selectedTab: AppTab = .home
     @State private var searchLoaded = false
+    @State private var bagLoaded = false
 
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -22,6 +24,7 @@ struct ContentView: View {
         .ignoresSafeArea(.keyboard, edges: .bottom)
         .onChange(of: selectedTab) { _, tab in
             if tab == .search && !searchLoaded { searchLoaded = true }
+            if tab == .bag && !bagLoaded { bagLoaded = true }
         }
     }
 
@@ -41,6 +44,14 @@ struct ContentView: View {
             }
             .opacity(selectedTab == .search ? 1 : 0)
             .allowsHitTesting(selectedTab == .search)
+
+            Group {
+                if bagLoaded {
+                    NavigationStack { BagView() }
+                }
+            }
+            .opacity(selectedTab == .bag ? 1 : 0)
+            .allowsHitTesting(selectedTab == .bag)
         }
     }
 
@@ -59,9 +70,20 @@ struct ContentView: View {
                         selectedTab = tab
                     } label: {
                         VStack(spacing: 4) {
-                            Image(systemName: selectedTab == tab ? tab.activeIcon : tab.inactiveIcon)
-                                .font(.system(size: 21))
-                                .foregroundStyle(selectedTab == tab ? .white : Color.atelierSecondary)
+                            ZStack(alignment: .topTrailing) {
+                                Image(systemName: selectedTab == tab ? tab.activeIcon : tab.inactiveIcon)
+                                    .font(.system(size: 21))
+                                    .foregroundStyle(selectedTab == tab ? .white : Color.atelierSecondary)
+
+                                if tab == .bag && bagStore.itemCount > 0 {
+                                    Text("\(min(bagStore.itemCount, 9))")
+                                        .font(.system(size: 7, weight: .black))
+                                        .foregroundStyle(Color.atelierBackground)
+                                        .frame(width: 13, height: 13)
+                                        .background(Color.white)
+                                        .offset(x: 5, y: -3)
+                                }
+                            }
 
                             Text(tab.label)
                                 .font(.system(size: 8, weight: .bold))
@@ -81,4 +103,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environment(BagStore())
 }

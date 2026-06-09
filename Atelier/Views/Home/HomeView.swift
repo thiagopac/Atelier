@@ -23,6 +23,7 @@ struct HomeView: View {
                         categoryPicker
                         featuredSection
                     }
+                    .padding(.bottom, 60)
                 }
             }
         }

@@ -24,7 +24,7 @@ struct ProductDetailView: View {
                     }
                 }
                 .safeAreaInset(edge: .bottom, spacing: 0) {
-                    bottomCTA
+                    bottomCTA.padding(.bottom, 60)
                 }
             }
         }

@@ -31,18 +31,12 @@ struct ContentView: View {
     private var tabContent: some View {
         ZStack {
             NavigationStack { HomeView() }
-                .safeAreaInset(edge: .bottom, spacing: 0) {
-                    tabBar.opacity(0).allowsHitTesting(false)
-                }
                 .opacity(selectedTab == .home ? 1 : 0)
                 .allowsHitTesting(selectedTab == .home)
 
             Group {
                 if searchLoaded {
                     NavigationStack { SearchView() }
-                        .safeAreaInset(edge: .bottom, spacing: 0) {
-                            tabBar.opacity(0).allowsHitTesting(false)
-                        }
                 }
             }
             .opacity(selectedTab == .search ? 1 : 0)

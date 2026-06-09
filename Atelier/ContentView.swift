@@ -12,6 +12,7 @@ struct ContentView: View {
     @State private var selectedTab: AppTab = .home
     @State private var searchLoaded = false
     @State private var bagLoaded = false
+    @State private var savedLoaded = false
 
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -25,6 +26,7 @@ struct ContentView: View {
         .onChange(of: selectedTab) { _, tab in
             if tab == .search && !searchLoaded { searchLoaded = true }
             if tab == .bag && !bagLoaded { bagLoaded = true }
+            if tab == .saved && !savedLoaded { savedLoaded = true }
         }
     }
 
@@ -52,6 +54,14 @@ struct ContentView: View {
             }
             .opacity(selectedTab == .bag ? 1 : 0)
             .allowsHitTesting(selectedTab == .bag)
+
+            Group {
+                if savedLoaded {
+                    NavigationStack { SavedView() }
+                }
+            }
+            .opacity(selectedTab == .saved ? 1 : 0)
+            .allowsHitTesting(selectedTab == .saved)
         }
     }
 
@@ -104,4 +114,5 @@ struct ContentView: View {
 #Preview {
     ContentView()
         .environment(BagStore())
+        .environment(SavedStore())
 }

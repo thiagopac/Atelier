@@ -11,7 +11,10 @@ struct ProductDetailView: View {
     let product: Product
     @Environment(\.dismiss) private var dismiss
     @Environment(BagStore.self) private var bagStore
+    @Environment(SavedStore.self) private var savedStore
     @State private var justAdded = false
+
+    private var isSaved: Bool { savedStore.isSaved(product) }
 
     var body: some View {
         ZStack {
@@ -140,7 +143,7 @@ struct ProductDetailView: View {
                     Text(justAdded ? "ADDED TO BAG ✓" : "ADD TO BAG")
                         .font(.system(size: 12, weight: .bold))
                         .tracking(3)
-                        .foregroundStyle(justAdded ? Color.atelierBackground : Color.atelierBackground)
+                        .foregroundStyle(Color.atelierBackground)
                         .frame(maxWidth: .infinity)
                         .frame(height: 52)
                         .background(justAdded ? Color.atelierAccent : Color.white)
@@ -151,12 +154,15 @@ struct ProductDetailView: View {
                     .fill(Color.atelierBorder)
                     .frame(width: 1, height: 52)
 
-                Button {} label: {
-                    Image(systemName: "heart")
+                Button {
+                    savedStore.toggle(product)
+                } label: {
+                    Image(systemName: isSaved ? "heart.fill" : "heart")
                         .font(.system(size: 20))
-                        .foregroundStyle(.white)
+                        .foregroundStyle(isSaved ? Color.atelierAccent : .white)
                         .frame(width: 56, height: 52)
                         .background(Color.atelierSurface)
+                        .animation(.easeInOut(duration: 0.2), value: isSaved)
                 }
             }
             .padding(.horizontal, 24)
@@ -178,4 +184,5 @@ struct ProductDetailView: View {
         ))
     }
     .environment(BagStore())
+    .environment(SavedStore())
 }

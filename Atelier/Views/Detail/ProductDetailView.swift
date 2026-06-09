@@ -12,7 +12,7 @@ struct ProductDetailView: View {
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
-        ZStack(alignment: .bottom) {
+        ZStack {
             Color.atelierBackground.ignoresSafeArea()
 
             VStack(spacing: 0) {
@@ -23,9 +23,10 @@ struct ProductDetailView: View {
                         infoSection
                     }
                 }
+                .safeAreaInset(edge: .bottom, spacing: 0) {
+                    bottomCTA
+                }
             }
-
-            bottomCTA
         }
         .toolbar(.hidden, for: .navigationBar)
     }
@@ -40,17 +41,7 @@ struct ProductDetailView: View {
                     .background(Circle().fill(Color.atelierSurface))
                     .overlay(Circle().strokeBorder(Color.atelierBorder, lineWidth: 1))
             }
-
             Spacer()
-
-            Button {} label: {
-                Image(systemName: "bookmark")
-                    .font(.system(size: 15))
-                    .foregroundStyle(.white)
-                    .frame(width: 38, height: 38)
-                    .background(Circle().fill(Color.atelierSurface))
-                    .overlay(Circle().strokeBorder(Color.atelierBorder, lineWidth: 1))
-            }
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 10)
@@ -121,7 +112,7 @@ struct ProductDetailView: View {
                 .font(.system(size: 14, weight: .light))
                 .foregroundStyle(Color.atelierSecondary)
                 .lineSpacing(6)
-                .padding(.bottom, 140)
+                .padding(.bottom, 32)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, 24)
